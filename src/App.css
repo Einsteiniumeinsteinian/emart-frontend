@@ -1,0 +1,89 @@
+a{
+  text-decoration: none;
+  
+}
+img.picture{
+ height: 70%;
+ width: 100%;
+}
+
+.size:hover{
+  background-color: lightgray;
+  color:white;
+}
+
+img.backup{
+  height: 29%;
+  width: 33%;
+}
+
+.MuiTypography-h6{
+ line-height: 1.1;
+}
+.MuiIconButton-root{
+  padding: 0px;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.paymentButton{
+  width: '100%';
+   background-color: '#FF3366';
+   color: 'white'
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@media screen and (max-width: 780px){
+ 
+  img.backup{
+    height:100%;
+    width: 100%;
+  }
+  img.picture{
+    height: 100%
+   
+  }
+ 
+}
+
+@media screen and (max-width: 900px) and (min-width: 780px) {
+  img.backup{
+    height:100%;
+    width: 100%;
+  }
+  img.picture{
+    height: 100%
+   
+  }
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
