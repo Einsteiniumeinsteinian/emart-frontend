@@ -1,8 +1,7 @@
 name: Test Build Deploy 
-# env: 
-#   # DOCKER_USERNAME: ,
-#   # DOCKER_USERNAME: 
-#   # name: "chibuike"
+env: 
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 on:
   push:
@@ -73,13 +72,13 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Print secret test
-        run: echo "${{ vars.IMAGE_NAME }}"
+        run: echo $DOCKER_USERNAME
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
