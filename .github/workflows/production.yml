@@ -1,4 +1,4 @@
-name: Test Build Deploy 
+name: Test Build Deploy
 on:
   push:
     branches:
@@ -28,7 +28,7 @@ jobs:
 
       - name: install final-form dependecies
         run: npm ci --legacy-peer-deps final-form
-      
+
       - name: build images
         run: npm run build
 
@@ -55,8 +55,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test the Docker image
-        run: docker-compose up -d 
-  push_to_registry: 
+        run: docker-compose up -d
+  push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     environment: Production
@@ -81,20 +81,32 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-           images: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}
-        env:
-          OUTPUT_TAGS: ${{ steps.meta.outputs.tags }}
-          OUTPUT_LABELS: ${{ steps.meta.outputs.labels }}
+          images: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}
 
-      - name: Create and push tag
-        run: |
-          echo "${OUTPUT_TAGS}" >> $GITHUB_ENV
-          echo "${OUTPUT_LABELS}" >> $GITHUB_ENV
-      
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: "{{defaultContext}}"
           push: true
-          tags: ${{ env.OUTPUT_TAGS }}
-          labels: ${{ env.OUTPUT_LABELS }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  refresh_instance_state:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.DEPLOYMENT_REGION }}  # Update with your desired AWS region
+
+      - name: Refresh Auto Scaling Group Instances
+        run: |
+          aws autoscaling start-instance-refresh \
+            --auto-scaling-group-name ${{ vars.ASG_NAME }} \
+            --preferences '{"InstanceWarmup":300}'
