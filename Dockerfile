@@ -1,5 +1,5 @@
 # APP Build Stage
-FROM node:node:lts-alpine3.18 as builder
+FROM node:lts-alpine3.18 as builder
 WORKDIR /app
 COPY package.json .
 RUN rm -rf node_modules README.md
