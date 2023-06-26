@@ -2,16 +2,6 @@ name: Build Test
 
 on:
   workflow_call:
-    inputs:
-      ENV_FILE:
-        required: true
-        type: string
-      REGISTRY:
-        required: true
-        type: string
-      IMAGE_NAME:
-        required: true
-        type: string
     secrets:
       DOCKER_PASSWORD:
         required: true
