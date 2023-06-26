@@ -7,7 +7,7 @@ A FrontEnd (React) Application was gotten from <https://github.com/amadijeffrey?
 ## Files Created
 
 The following files and folder structure were added to the already existing application:
-    - .github.
+    - .github directory.
     - docker-compose
     - Dockerfile
 
