@@ -1,0 +1,25 @@
+name: Deploy to Production
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  application_code_test:
+    name: Application Code Test
+    uses: ./.github/workflows/test.yaml
+  test_image_deployment:
+    needs: application_code_test
+    name: Test Image Deployment
+    uses: ./.github/workflows/test_image_deployment.yaml
+  push_t0_registry: 
+    name: Push Docker image to Docker Hub
+    needs: test_image_creation
+    uses: ./.github/workflows/push_images.yaml
+  deploy:
+    needs: push_to_registry
+    uses: ./.github/workflows/.deployment.yaml

@@ -1,0 +1,46 @@
+name: Application Test
+
+on:
+  workflow_call:
+
+jobs:
+  application_code_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: install final-form dependecies
+        run: npm ci --legacy-peer-deps final-form
+
+      - name: build images
+        run: npm run build
+
+      # - name: Run pre-build steps (e.g., linting)
+      #   run: npm run lint
+
+      # - name: Run unit tests
+      #   run: npm run test:unit
+
+      # - name: Run integration tests
+      #   run: npm run test:integration
