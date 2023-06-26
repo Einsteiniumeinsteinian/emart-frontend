@@ -2,7 +2,7 @@ name: Build Test
 
 on:
   workflow_call:
-    inputs:
+    variables:
       ENV_FILE:
         required: true
         type: string
@@ -28,7 +28,7 @@ jobs:
 
       - name: 'Create env file'
         run: |
-          echo "${{inputs.ENV_FILE }}" >> .env
+          echo "${{vars.ENV_FILE }}" >> .env
 
       - name: verify env creation
         run: cat .env
@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}
+          images: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
