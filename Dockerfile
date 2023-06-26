@@ -2,7 +2,8 @@
 FROM node:lts-alpine3.18 as builder
 WORKDIR /app
 COPY package.json .
-RUN rm -rf node_modules README.md
+COPY package-lock.json .
+RUN ls
 RUN npm ci --legacy-peer-deps
 RUN  npm ci --legacy-peer-deps final-form
 COPY . .
