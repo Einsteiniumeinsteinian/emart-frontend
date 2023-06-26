@@ -11,6 +11,16 @@ The following files and folder structure were added to the already existing appl
     - docker-compose.
     - Dockerfile.
 
+## Docker Setup
+
+To run container the following command should be run in the root directory of the folder
+
+```bash
+docker-compose -up
+```
+
+`to run in background add the -d flag to the command`
+
 ## Project Setup
 
 Set up env variables as seen in ./config.js and run "npm install --legacy-peer-deps"
