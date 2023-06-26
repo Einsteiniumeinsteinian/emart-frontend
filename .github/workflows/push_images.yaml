@@ -2,6 +2,16 @@ name: Build Test
 
 on:
   workflow_call:
+    inputs:
+      ENV_FILE:
+        required: true
+        type: string
+      REGISTRY:
+        required: true
+        type: string
+      IMAGE_NAME:
+        required: true
+        type: string
     secrets:
       DOCKER_PASSWORD:
         required: true
@@ -11,6 +21,7 @@ on:
 jobs:
   push_to_registry:
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -18,9 +29,6 @@ jobs:
       - name: 'Create env file'
         run: |
           echo "${{inputs.ENV_FILE }}" >> .env
-
-      - name: verify env creation
-        run: cat .env
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
