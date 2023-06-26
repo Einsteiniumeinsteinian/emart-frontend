@@ -1,8 +1,19 @@
 # Ecommerce web application
 
-### Project Setup
+## Overview
 
-Set up env variables as seen in ./config.js and run "npm install --legacy-peer-deps" 
+A FrontEnd (React) Application was gotten from <https://github.com/amadijeffrey?tab=repositories>. It consists of 3 parts.
+
+## Files Created
+
+The following files and folder structure were added to the already existing application:
+    - .github.
+    - docker-compose
+    - Dockerfile
+
+## Project Setup
+
+Set up env variables as seen in ./config.js and run "npm install --legacy-peer-deps"
 
 ## Available Scripts
 
