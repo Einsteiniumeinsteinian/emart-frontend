@@ -19,6 +19,7 @@ jobs:
   push_to_registry: 
     name: Push Docker image to Docker Hub
     needs: test_image_deployment
+    environment: Productiom
     uses: ./.github/workflows/push_images.yaml
     with:
       ENV_FILE: ${{ vars.ENV_FILE}}
@@ -28,5 +29,6 @@ jobs:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   deploy:
+    name: Deploy to AWS
     needs: push_to_registry
     uses: ./.github/workflows/deployment.yaml
