@@ -16,9 +16,9 @@ jobs:
     needs: application_code_test
     name: Test Image Deployment
     uses: ./.github/workflows/test_image_deployment.yaml
-  push_t0_registry: 
+  push_to_registry: 
     name: Push Docker image to Docker Hub
-    needs: test_image_creation
+    needs: test_image_deployment
     uses: ./.github/workflows/push_images.yaml
   deploy:
     needs: push_to_registry
