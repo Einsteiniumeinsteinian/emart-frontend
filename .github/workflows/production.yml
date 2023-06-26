@@ -1,4 +1,4 @@
-name: Test Build Deploy
+name: Test Build and Deploy Application to Autoscaling Group.
 on:
   push:
     branches:
@@ -8,7 +8,8 @@ on:
       - main
 
 jobs:
-  test:
+  application_code_test:
+    name: Application Code Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,25 +50,19 @@ jobs:
       # - name: Run integration tests
       #   run: npm run test:integration
 
-  build_image:
+  test_image_build:
     needs: test
     runs-on: ubuntu-latest
-    name: Build Image. 
+    name: Test Image Build 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Build the Docker image
         run: docker-compose build --no-cache --force-rm
-        
-  test_image_install:
-    needs: build_image
-    runs-on: ubuntu-latest
-    name: image setup test
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test the Docker image
-        run: docker-compose up -d
+      - name: Run Built Image 
+        run:  docker-compose up -d --no-build 
+
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest

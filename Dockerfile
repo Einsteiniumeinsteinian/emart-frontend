@@ -6,7 +6,6 @@ COPY package-lock.json .
 RUN npm ci --legacy-peer-deps
 RUN  npm ci --legacy-peer-deps final-form
 COPY . .
-RUN ls
 RUN npm run build
 
 # Nginx Setup
