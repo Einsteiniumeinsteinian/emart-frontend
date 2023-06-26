@@ -2,11 +2,15 @@ name: Production Deployment
 
 on:
   workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
   
 jobs:
   refresh_instance_state:
     runs-on: ubuntu-latest
-    environment: Production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

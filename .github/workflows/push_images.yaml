@@ -2,16 +2,6 @@ name: Build Test
 
 on:
   workflow_call:
-    inputs:
-      ENV_FILE:
-        required: true
-        type: string
-      REGISTRY:
-        required: true
-        type: string
-      IMAGE_NAME:
-        required: true
-        type: string
     secrets:
       DOCKER_PASSWORD:
         required: true
@@ -21,7 +11,6 @@ on:
 jobs:
   push_to_registry:
     runs-on: ubuntu-latest
-    environment: Production
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3

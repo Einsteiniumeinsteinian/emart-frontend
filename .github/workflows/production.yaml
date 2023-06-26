@@ -20,10 +20,6 @@ jobs:
     name: Push Docker image to Docker Hub
     needs: test_image_deployment
     uses: ./.github/workflows/push_images.yaml
-    with:
-      ENV_FILE: ${{ vars.ENV_FILE}}
-      REGISTRY: ${{ vars.REGISTRY }}
-      IMAGE_NAME: ${{ vars.IMAGE_NAME }}
     secrets:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
