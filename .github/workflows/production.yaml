@@ -11,7 +11,7 @@ on:
 jobs:
   application_code_test:
     name: Application Code Test
-    uses: ./.github/workflows/test.yaml
+    uses: ./.github/workflows/application_code_test.yaml
   test_image_deployment:
     needs: application_code_test
     name: Test Image Deployment
