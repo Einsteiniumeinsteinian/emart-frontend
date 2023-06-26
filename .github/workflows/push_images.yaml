@@ -3,13 +3,13 @@ name: Build Test
 on:
   workflow_call:
     inputs:
-      ENV_FILE:
+      env:
         required: true
         type: string
-      REGISTRY:
+      registry:
         required: true
         type: string
-      IMAGE_NAME:
+      image-name:
         required: true
         type: string
     secrets:

@@ -21,9 +21,9 @@ jobs:
     needs: test_image_deployment
     uses: ./.github/workflows/push_images.yaml
     with:
-      ENV_FILE: ${{ vars.ENV_FILE}}
-      REGISTRY: ${{ REGISTRY }}
-      IMAGE_NAME: ${{ IMAGE_NAME }}
+      env: ${{ vars.ENV_FILE}}
+      registry: ${{ REGISTRY }}
+      image-name: ${{ IMAGE_NAME }}
     secrets:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
