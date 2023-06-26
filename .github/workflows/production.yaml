@@ -22,4 +22,4 @@ jobs:
     uses: ./.github/workflows/push_images.yaml
   deploy:
     needs: push_to_registry
-    uses: ./.github/workflows/.deployment.yaml
+    uses: ./.github/workflows/deployment.yaml
