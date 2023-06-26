@@ -2,6 +2,21 @@ name: Build Test
 
 on:
   workflow_call:
+    inputs:
+      ENV_FILE:
+        required: true
+        type: string
+      REGISTRY:
+        required: true
+        type: string
+      IMAGE_NAME:
+        required: true
+        type: string
+    secrets:
+      DOCKER_PASSWORD:
+        required: true
+      DOCKER_USERNAME:
+        required: true
 
 jobs:
   push_to_registry:
@@ -13,10 +28,10 @@ jobs:
 
       - name: 'Create env file'
         run: |
-          echo "${{vars.ENV_FILE }}" >> .env
-          
+          echo "${{inputs.ENV_FILE }}" >> .env
+
       - name: verify env creation
-        run: ls
+        run: cat .env
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -28,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}
+          images: ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671

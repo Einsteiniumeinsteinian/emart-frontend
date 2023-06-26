@@ -10,10 +10,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: 'Create env file'
-        run: |
-          echo "${{ secrets.ENV_FILE }}" >> .env
-
       - name: Build the Docker image
         run: docker-compose build --no-cache --force-rm
       - name: Run Built Image 
