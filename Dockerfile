@@ -1,10 +1,11 @@
 # APP Build Stage
-FROM node:latest as builder
+FROM node:node:lts-alpine3.18 as builder
 WORKDIR /app
-RUN git clone  --depth 1 --branch  main https://github.com/Einsteiniumeinsteinian/emart-frontend.git .
+COPY package.json .
 RUN rm -rf node_modules README.md
 RUN npm ci --legacy-peer-deps
 RUN  npm ci --legacy-peer-deps final-form
+COPY . .
 RUN npm run build
 
 # Nginx Setup
